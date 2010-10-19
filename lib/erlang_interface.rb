@@ -1,6 +1,8 @@
+LOADABOY_EXEC_DIR = `echo $LOADABOY_EXEC_DIR`.chomp
+
 require 'rubygems'
 require 'erlectricity'
-require '../lib/loadaboy.rb'
+require 'loadaboy'
 
 extend LoadaBoy
 

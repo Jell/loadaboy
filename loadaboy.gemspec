@@ -26,7 +26,16 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "bin/loadaboy",
+     "ebin/run_loadaboy",
+     "elib/load_test.erl",
+     "elib/worker.erl",
+     "ext/Makefile",
+     "ext/extconf.rb",
+     "lib/erlang_interface.rb",
+     "lib/generator.rb",
      "lib/loadaboy.rb",
+     "loadaboy.gemspec",
      "test/helper.rb",
      "test/test_loadaboy.rb"
   ]
@@ -46,14 +55,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_runtime_dependency(%q<erlectricity>, ["= 1.1.1"])
+      s.add_runtime_dependency(%q<erlectricity>, ["~> 1.1.1"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_dependency(%q<erlectricity>, ["= 1.1.1"])
+      s.add_dependency(%q<erlectricity>, ["~> 1.1.1"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-    s.add_dependency(%q<erlectricity>, ["= 1.1.1"])
+    s.add_dependency(%q<erlectricity>, ["~> 1.1.1"])
   end
 end
 

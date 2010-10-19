@@ -1,2 +1,5 @@
-#!/bin/sh
-cd ebin && ./run_loadaboy $*
+#!/usr/bin/env ruby
+$:.unshift(File.join(File.dirname(__FILE__), *%w[.. lib]))
+LOADBOY_ROOT = File.join(File.dirname(__FILE__), *%w[..])
+
+system "export LOADABOY_EXEC_DIR=#{Dir.pwd} && cd #{LOADBOY_ROOT}/ebin && ./run_loadaboy #{ARGV.join(' ')}"

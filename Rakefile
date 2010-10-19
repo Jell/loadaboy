@@ -21,7 +21,7 @@ begin
     gem.files.include(["ext"])
     gem.extensions << 'ext/extconf.rb'
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    gem.add_dependency  "erlectricity", "=1.1.1"
+    gem.add_dependency  "erlectricity", "~>1.1.1"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

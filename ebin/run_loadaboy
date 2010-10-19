@@ -8,8 +8,7 @@ main(String) ->
 		LoadTest = load_test:new(Domain, list_to_integer(WorkerCount), list_to_integer(RequestCount)),
 		LoadTest:start(),
 		LoadTest:prepare(),
-		LoadTest:run(),
-		halt(10)
+		LoadTest:run()
 	catch
 		_:_ ->
 			usage()

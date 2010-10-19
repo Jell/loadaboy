@@ -1,5 +1,5 @@
-require 'generator.rb'
-require 'Loadafile.rb'
+require 'generator'
+require "#{LOADABOY_EXEC_DIR}/Loadafile" if File.exist? "#{LOADABOY_EXEC_DIR}/Loadafile.rb"
 
 module LoadaBoy
   def generate_requests(workers_count, jobs_count)
