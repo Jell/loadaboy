@@ -1,16 +1,27 @@
 require 'rubygems'
 require 'rake'
 
+task :ebuild do
+  ERLC_TEST_FLAGS = ""
+  ERLC_FLAGS = "-o ../ebin"
+  cd "elib"
+  sh "erlc  #{ERLC_FLAGS} #{ERLC_TEST_FLAGS} #{Dir["**/*.erl"].join(" ")}"
+end
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "loadaboy"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.executables     = %W(loadaboy)
+    gem.summary = %Q{LoadaBoy - Load Test Gem to the Rescue!}
+    gem.description = %Q{LoadaBoy - Load Test Gem to the Rescue!}
     gem.email = "jean-louis@icehouse.se"
     gem.homepage = "http://github.com/Jell/loadaboy"
     gem.authors = ["Jell"]
+    gem.files.include(["ext"])
+    gem.extensions << 'ext/extconf.rb'
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_dependency  "erlectricity", "=1.1.1"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

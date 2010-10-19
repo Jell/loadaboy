@@ -1,0 +1,24 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+main(String) ->
+	try
+	  error_logger:tty(false),
+		[Domain, WorkerCount, RequestCount] = String,
+		LoadTest = load_test:new(Domain, list_to_integer(WorkerCount), list_to_integer(RequestCount)),
+		LoadTest:start(),
+		LoadTest:prepare(),
+		LoadTest:run(),
+		halt(10)
+	catch
+		_:_ ->
+			usage()
+	end;
+
+main(_) ->
+	io:format("no header\n"),
+	usage().
+
+usage() ->
+	io:format("usage: loadaboy domain worker-count request-count\n"),
+	halt(1).

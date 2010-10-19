@@ -1,6 +1,15 @@
 = loadaboy
 
-Description goes here.
+Simple Load Test service.
+
+== use
+
+* Write a custom generator in Loadafile.rb
+* run loadaboy domain workers requests-per-worker
+
+== example
+
+loadaboy http://localhost:3000 10 10
 
 == Note on Patches/Pull Requests
  
