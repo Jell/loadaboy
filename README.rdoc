@@ -1,14 +1,16 @@
 = LoadaBoy
 
-== Installation
-
-    gem install loadaboy
-
-LoadaBoy requires Erlang and RubyGems.
-
 == Synopsis
 
 A Load Tester that allows you to generate dynamic requests.
+
+== Requirements
+
+LoadaBoy requires Erlang and RubyGems.
+
+== Installation
+
+    gem install loadaboy
 
 == How it works
 
