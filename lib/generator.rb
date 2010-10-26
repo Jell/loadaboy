@@ -1,5 +1,5 @@
 class Generator
   def generate
-    { default: "/" }
+    { :default => "/" }
   end
 end
