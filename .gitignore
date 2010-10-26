@@ -21,3 +21,4 @@ pkg
 ## PROJECT::SPECIFIC
 *.beam
 Loadafile.rb
+.rvmrc

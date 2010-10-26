@@ -1,5 +1,3 @@
-LOADABOY_EXEC_DIR = `echo $LOADABOY_EXEC_DIR`.chomp
-
 require 'rubygems'
 require 'erlectricity'
 require 'loadaboy'

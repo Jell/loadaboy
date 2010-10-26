@@ -14,7 +14,7 @@ begin
     gem.name = "loadaboy"
     gem.executables     = %W(loadaboy)
     gem.summary = %Q{LoadaBoy - Load Test Gem to the Rescue!}
-    gem.description = %Q{LoadaBoy - Load Test Gem to the Rescue!}
+    gem.description = %Q{LoadaBoy is a load testing gem.}
     gem.email = "jean-louis@icehouse.se"
     gem.homepage = "http://github.com/Jell/loadaboy"
     gem.authors = ["Jell"]

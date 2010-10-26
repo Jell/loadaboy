@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Jell"]
   s.date = %q{2010-10-26}
   s.default_executable = %q{loadaboy}
-  s.description = %q{LoadaBoy - Load Test Gem to the Rescue!}
+  s.description = %q{LoadaBoy is a load testing gem.}
   s.email = %q{jean-louis@icehouse.se}
   s.executables = ["loadaboy"]
   s.extensions = ["ext/extconf.rb", "ext/extconf.rb"]
@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
      "ext/Makefile",
      "ext/extconf.rb",
      "lib/erlang_interface.rb",
-     "lib/generator.rb",
      "lib/loadaboy.rb",
      "loadaboy.gemspec",
      "test/helper.rb",

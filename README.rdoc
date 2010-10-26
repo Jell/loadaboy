@@ -1,47 +1,52 @@
-= loadaboy
+= LoadaBoy
 
-= Simple Load Test service.
+== Installation
 
-= Installation
+    gem install loadaboy
 
-= Synopsis
+LoadaBoy requires Erlang and RubyGems.
 
-How it works
+== Synopsis
 
-* Write a custom generator in Loadafile.rb
-* run loadaboy domain workers requests-per-worker
+A Load Tester that allows you to generate dynamic requests.
 
-== Loadafile.rb:
+== How it works
 
-    class Generator
-      AD_SIZES = [{width: 250, height:360}, {width: 300, height:250}, {width: 336, height:280}, {width: 480, height:280}]
+* Write a custom generator in Loadafile.rb:
 
-      def random_size
-        AD_SIZES[rand(AD_SIZES.length)]
-      end
+  * The generator should return a hash with the requests names as keys and the urls as values.
 
-      def random_string(n = 10)
-        (1..n).map{ ('a'..'z').to_a[rand(26)] }.join
-      end
+  * The generated request order is respected when the load test is running.
 
-      def random_keywords(n = 20)
-        (1..n).map{random_string(5+rand(20))}.join("+")
-      end
+  * One set of requests returned by the generator represents one job.
 
-      def generate
-        size = random_size
-        {
-          static: "/dynad/static.js",
-          ad:     "/dynad/ad/load_test_#{rand(3)}/#{size[:width]}/#{size[:height]}?div_id=#{random_string}&keywords=#{random_keywords}&track_url=http://www.zombo.com/"
-        }
-      end
+* run:
+    loadaboy domain-name number-of-workers number-of-jobs-per-worker
+
+== Example
+
+=== Loadafile.rb:
+    require 'loadaboy'
+    
+    def random_string(n = 10)
+      (1..n).map{ ('a'..'z').to_a[rand(26)] }.join
+    end
+    
+    def random_keywords(n = 20)
+      (1..n).map{random_string(5+rand(20))}.join("+")
+    end
+    
+    LoadaBoy.generator do
+      {
+        :first   => "/static",
+        :second  => "/dynamic/#{rand(3)}?random_string=#{random_string}&keywords=#{random_keywords}"
+      }
     end
 
 
 
-== run:
-
-      loadaboy http://localhost:3000 10 10
+=== Run:
+    loadaboy http://localhost:3000 10 10
 
 == Note on Patches/Pull Requests
 
