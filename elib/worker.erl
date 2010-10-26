@@ -28,13 +28,13 @@ fetch_url(Url) ->
 		Time = time_to_ms(Tac) - time_to_ms(Tic),
 		case Result of
 			timeout ->
-				[timeout, Time];
+				[{"HTTP/1.1", 408, "Request Timeout"}, Time];
 			{Header, _Params, _Body} ->
 				[Header, Time]
 		end
 	catch
 		_:_ ->
-			['FAIL', 0]
+			[{"HTTP/1.1", 400, "Bad Request"}, 0]
 	end.
 
 time_to_ms({Mega, Sec, Micro})->
@@ -46,6 +46,6 @@ get_over_http(Url) ->
 		{http, {RequestId, Result}} ->
 			Result
 	after
-		3000 ->
+		10000 ->
 			timeout
 	end.

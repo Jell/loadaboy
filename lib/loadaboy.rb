@@ -29,5 +29,3 @@ module LoadaBoy
   end
 end
 
-LOADABOY_EXEC_DIR = `echo $LOADABOY_EXEC_DIR`.chomp
-require "#{LOADABOY_EXEC_DIR}/Loadafile" if File.exist? "#{LOADABOY_EXEC_DIR}/Loadafile.rb"
