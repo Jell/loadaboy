@@ -36,6 +36,10 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
+task :etest do
+  sh "cd ebin && ./test_load_test.erl"
+end
+
 begin
   require 'rcov/rcovtask'
   Rcov::RcovTask.new do |test|
@@ -51,7 +55,7 @@ end
 
 task :test => :check_dependencies
 
-task :default => :test
+task :default => [:test, :etest]
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
