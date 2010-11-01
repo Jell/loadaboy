@@ -18,6 +18,7 @@ begin
     gem.email = "jean-louis@icehouse.se"
     gem.homepage = "http://github.com/Jell/loadaboy"
     gem.authors = ["Jell"]
+    gem.files.exclude 'ebin/test_*', 'elib/minitest.erl'
     gem.files.include(["ext"])
     gem.extensions << 'ext/extconf.rb'
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"

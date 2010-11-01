@@ -21,11 +21,7 @@ module LoadaBoy
   end
 
   def generate_urls(jobs_count)
-    urls = []
-    (1..jobs_count).map { generate.to_a }.flatten.each_slice(2) do |slice|
-      urls << slice
-    end
-    urls
+    (1..jobs_count).inject([]){ |acc, _| acc + generate.to_a}
   end
 end
 

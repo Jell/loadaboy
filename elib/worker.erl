@@ -11,11 +11,13 @@ run() ->
 
 fetch_urls([]) ->
   Parent!done;
-fetch_urls([Url|Tail]) ->
-  {Name, Request} = Url,
-  [Header, Time] = fetch_url(Domain ++ binary_to_list(Request)),
-  io:format("~p ~p ~p~n", [Header, Name, Time]),
+fetch_urls([{Name, Url}|Tail]) ->
+  [Header, Time] = fetch_url(Domain ++ binary_to_list(Url)),
+  forecast_result(Header, Name, Time, Url),
   fetch_urls(Tail).
+
+forecast_result(Header, Name, Time, Url) ->
+  io:format("~p ~p ~p ~s~n", [Header, Name, Time, Url]).
 
 fetch_url(Url) ->
   try
