@@ -46,8 +46,8 @@ generate_workers(_Service, []) ->
   done;
 generate_workers(Service, [WorkerName | Remaining]) ->
   {atomic, [Urls]} = get_urls(Service, WorkerName),
-  Worker = worker:new(self(), WorkerName, Domain, Urls),
-  Worker:run(),
+  gen_server:start_link({local, WorkerName}, worker, [self(), WorkerName, Domain, Urls], []),
+  gen_server:cast(WorkerName, run),
   generate_workers(Service, Remaining).
 
 wait_for_workers(0) ->
