@@ -8,7 +8,13 @@ class TestLoadaboy < Test::Unit::TestCase
       LoadaBoy.generator do
         "custom generator"
       end
-      assert_equal "custom generator", generate
+      assert_equal "custom generator", generate_default
+    end
+    should "define a generate function running the given block with proper name" do
+      LoadaBoy.generator :test do
+        "custom generator"
+      end
+      assert_equal "custom generator", generate_test
     end
   end
 
@@ -22,6 +28,13 @@ class TestLoadaboy < Test::Unit::TestCase
     should "return a list of n-workers with their url list" do
       stubs(:generate_urls).returns("url_list")
       assert_equal [[:worker1, "url_list"], [:worker2, "url_list"]], generate_requests(2, 1)
+    end
+    should "set proper generator" do
+      LoadaBoy.generator :test do
+        "custom generator"
+      end
+      generate_requests(2, 1, :test)
+      assert_equal "custom generator", generate
     end
   end
 

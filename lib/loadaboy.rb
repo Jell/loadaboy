@@ -3,18 +3,24 @@ require 'enumerator'
 module LoadaBoy
 
   class << self
-    def generator(&block)
-      define_method :generate, &block
+    def generator(service = 'default', &block)
+      define_method "generate_#{service}", &block
+    end
+    def set_generator(name)
+      alias_method(:generate, "generate_#{name}")
     end
   end
 
-  protected
-
-  def generate
+  def generate_default
     { :default => "/" }
   end
 
-  def generate_requests(workers_count, jobs_count)
+  alias_method :generate, :generate_default
+
+  protected
+
+  def generate_requests(workers_count, jobs_count, service = nil)
+    methods.include?("generate_#{service}") ? LoadaBoy.set_generator(service) : LoadaBoy.set_generator(:default)
     (1..workers_count).map do |i|
       ["worker#{i}".to_sym, generate_urls(jobs_count)]
     end

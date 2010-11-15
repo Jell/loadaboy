@@ -1,4 +1,4 @@
--module(load_test, [Domain, WorkerCount, RequestCount]).
+-module(load_test, [Domain, WorkerCount, RequestCount, ServiceList]).
 %-export([start/0, stop/0, run/0, generate_services/1, get_services/0, get_workers/1, get_jobs/2, get_urls/3, set_urls/4]).
 -compile(export_all).
 -record(load_entry, {key, urls}).
@@ -22,7 +22,12 @@ open_ruby_port() ->
 prepare() ->
   prepare_mnesia(),
   Port = open_ruby_port(),
-  Payload = term_to_binary([prepare, [WorkerCount, RequestCount]]),
+  Payload = case ServiceList of
+    [Service] ->
+      term_to_binary([prepare, [WorkerCount, RequestCount, list_to_binary(Service)]]);
+    _ ->
+      term_to_binary([prepare, [WorkerCount, RequestCount]])
+  end,
   port_command(Port, Payload),
   receive
     {Port, {data, Data}} ->

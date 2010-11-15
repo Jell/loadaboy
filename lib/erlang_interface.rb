@@ -9,7 +9,8 @@ require "#{LOADABOY_EXEC_DIR}/Loadafile" if File.exist? "#{LOADABOY_EXEC_DIR}/Lo
 
 receive do |f|
   f.when([:prepare, Array]) do |array|
-    f.send!([:result, generate_requests(array[0], array[1])])
+    workers, jobs, service = array
+    f.send!([:result, generate_requests(workers, jobs, service)])
     f.receive_loop
   end
 end
