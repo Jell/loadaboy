@@ -20,7 +20,7 @@ module LoadaBoy
   protected
 
   def generate_requests(workers_count, jobs_count, service = nil)
-    methods.include?("generate_#{service}") ? LoadaBoy.set_generator(service) : LoadaBoy.set_generator(:default)
+    methods.include?("generate_#{service}") || methods.include?("generate_#{service}".to_sym)? LoadaBoy.set_generator(service) : LoadaBoy.set_generator(:default)
     (1..workers_count).map do |i|
       ["worker#{i}".to_sym, generate_urls(jobs_count)]
     end
