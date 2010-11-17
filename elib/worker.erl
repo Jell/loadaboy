@@ -57,7 +57,7 @@ time_to_ms({Mega, Sec, Micro})->
   Mega * 1000000000 + Sec * 1000 + Micro / 1000.
 
 get_over_http(Url, ProfileName) ->
-  {ok, RequestId} = http:request(get, {Url, []}, [], [{sync, false}], ProfileName),
+  {ok, RequestId} = http:request(get, {Url, [{"connection", "Keep-Alive"}]}, [], [{sync, false}], ProfileName),
   receive
     {http, {RequestId, Result}} ->
       Result
