@@ -16,14 +16,12 @@ LoadaBoy requires Erlang and RubyGems.
 
 * Write a custom generator in Loadafile.rb:
 
-  * The generator should return a hash with the requests names as keys and the urls as values.
+Write a generator containing each request a worker needs to perform per job.
+The request order is respected.
+You can optionally give a name to the generator if you want to test different load profiles.
 
-  * The generated request order is respected when the load test is running.
-
-  * One set of requests returned by the generator represents one job.
-
-* run:
-    loadaboy domain-name number-of-workers number-of-jobs-per-worker
+* In the same folder as your Loadafile.rb, run:
+    loadaboy domain-name number-of-workers number-of-jobs-per-worker (generator-name)
 
 == Example
 
@@ -39,16 +37,23 @@ LoadaBoy requires Erlang and RubyGems.
     end
     
     LoadaBoy.generator do
-      {
-        :first   => "/static",
-        :second  => "/dynamic/#{rand(3)}?random_string=#{random_string}&keywords=#{random_keywords}"
-      }
+      request :static,  "/static"
+      request :dynamic, "/dynamic/#{rand(3)}?random_string=#{random_string}&keywords=#{random_keywords}"
     end
-
-
+    
+    LoadaBoy.generator :only_dynamic do
+      request :dynamic, "/dynamic/#{rand(3)}?random_string=#{random_string}&keywords=#{random_keywords}"
+    end
 
 === Run:
     loadaboy http://localhost:3000 10 10
+
+or
+    loadaboy http://localhost:3000 10 10 only_dynamic
+
+== TODO
+
+* Add options to request to customize timeout, disable keepalive etc...
 
 == Note on Patches/Pull Requests
 

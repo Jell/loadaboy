@@ -4,15 +4,25 @@ module LoadaBoy
 
   class << self
     def generator(service = 'default', &block)
-      define_method "generate_#{service}", &block
+      define_method "generate_#{service}" do
+        @urls = {}
+        block.call
+        @urls
+      end
     end
     def set_generator(name)
       alias_method(:generate, "generate_#{name}")
     end
   end
 
+  def request(name, url, options={})
+    @urls[name] = url
+  end
+
   def generate_default
-    { :default => "/" }
+    @urls = {}
+    request :default, "/"
+    @urls
   end
 
   alias_method :generate, :generate_default

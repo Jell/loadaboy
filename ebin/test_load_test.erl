@@ -15,7 +15,7 @@ main(_) ->
 
 new_load_test() ->
   Domain = io_lib:format("http://localhost:3000", []),
-  load_test:new(Domain, 1, 1).
+  load_test:new(Domain, 1, 1, []).
 
 % ---------------------------------------------------------------------
 %   load_test:new

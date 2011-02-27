@@ -6,15 +6,17 @@ class TestLoadaboy < Test::Unit::TestCase
   context ".generator" do
     should "define a generate function running the given block" do
       LoadaBoy.generator do
-        "custom generator"
+        raise "block ran"
       end
-      assert_equal "custom generator", generate_default
+      exception = assert_raise(RuntimeError){ generate_test }
+      assert_match /block ran/, exception.message
     end
     should "define a generate function running the given block with proper name" do
       LoadaBoy.generator :test do
-        "custom generator"
+        raise "block ran"
       end
-      assert_equal "custom generator", generate_test
+      exception = assert_raise(RuntimeError){ generate_test }
+      assert_match /block ran/, exception.message
     end
   end
 
@@ -31,10 +33,10 @@ class TestLoadaboy < Test::Unit::TestCase
     end
     should "set proper generator" do
       LoadaBoy.generator :test do
-        "custom generator"
+        request :request, "custom request"
       end
-      generate_requests(2, 1, :test)
-      assert_equal "custom generator", generate
+      generate_requests(1, 1, :test)
+      assert_equal "custom request", @urls[:request]
     end
   end
 
@@ -42,6 +44,14 @@ class TestLoadaboy < Test::Unit::TestCase
     should "return a list of n urls" do
       stubs(:generate).returns("name" => "url")
       assert_equal [["name", "url"], ["name", "url"]], generate_urls(2)
+    end
+  end
+
+  context "#request" do
+    should "add request to url list" do
+      @urls = {}
+      request :test, "test"
+      assert_equal "test", @urls[:test]
     end
   end
 
